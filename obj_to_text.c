@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 void parse_obj(FILE* in, FILE* out) {
-	char buffer[512];
+	unsigned char buffer[512];
 
 	while(!feof(in)) {
 		int header_num_read = fread(buffer, 1, 4, in);
@@ -21,7 +21,7 @@ void parse_obj(FILE* in, FILE* out) {
 			count -= num_read;
 
 			for(int i = 0; i < num_read; i += 2) {
-				fprintf(out, "%04X\t", ((buffer[i] << 8) | buffer[i+1]) & 0xFFFF);
+				fprintf(out, "%04X\t", (buffer[i] << 8) | buffer[i+1]);
 				if((i+2) % 10 == 0)
 					fprintf(out, "\n");
 			}
